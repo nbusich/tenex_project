@@ -5,6 +5,8 @@ from .users import auth_backend, fastapi_users, AUTH_URL_PATH
 from fastapi.middleware.cors import CORSMiddleware
 from .utils import simple_generate_unique_route_id
 from app.routes.items import router as items_router
+from app.routes.logs import router as logs_router
+from app.routes.models import router as models_router
 from app.config import settings
 
 app = FastAPI(
@@ -50,4 +52,8 @@ app.include_router(
 
 # Include items routes
 app.include_router(items_router, prefix="/items")
+# Include logs routes
+app.include_router(logs_router, prefix="/logs")
+# Include model comparison routes
+app.include_router(models_router, prefix="/models")
 add_pagination(app)

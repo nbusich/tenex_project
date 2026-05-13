@@ -11,7 +11,19 @@ dependencies = [
     "fastapi-users[sqlalchemy]>=13.0.0,<14",
     "pydantic-settings>=2.5.2,<3",
     "fastapi-mail>=1.4.1,<2",
-    "fastapi-pagination==0.13.3"
+    "fastapi-pagination==0.13.3",
+    # ML inference stack — needed to load and serve trained anomaly models.
+    # The heuristic detector path doesn't import these (lazy imports inside
+    # `app/anomaly/detector.py:_try_model`), so the API still boots if one
+    # of these resolves badly in dev.
+    "numpy>=1.26,<3",
+    "pandas>=2.0,<3",
+    "scikit-learn>=1.4,<2",
+    "scipy>=1.11,<2",
+    "joblib>=1.3,<2",
+    # Torch is heavy (~700MB CPU wheel). If image size matters more than
+    # ergonomics, switch to the CPU-only index in the Dockerfile.
+    "torch>=2.1,<3",
 ]
 
 [dependency-groups]
@@ -29,9 +41,27 @@ dev = [
     "mkdocs-material>=9.6.9",
     "mkdocs-material[imaging]>=9.6.9",
 ]
+# Training-only extras: install with `uv sync --group ml-train`.
+# Kept out of the runtime image so production stays slim.
+ml-train = [
+    "matplotlib>=3.8,<4",
+    "kagglehub>=0.3,<1",
+]
 
 [tool.uv]
 package = false
+
+# Force torch to the CPU-only wheel index on Linux. macOS already ships
+# CPU-only torch on PyPI, so we leave that platform on the default index.
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cpu", marker = "platform_system == 'Linux'" },
+]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true
 
 [tool.hatch.build.targets.sdist]
 include = ["commands"]

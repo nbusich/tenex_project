@@ -1,0 +1,21 @@
+timestamp,user,client_ip,method,url,content_length,label
+2026-05-09 10:38:56,user_46@enterprise.com,10.10.1.55,GET,http://localhost:8080/tienda1/publico/carrito.jsp,,0
+2026-05-09 19:11:38,user_21@enterprise.com,10.10.1.31,POST,http://localhost:8080/tienda1/publico/entrar.jsp,Content-Length: 33,0
+2026-05-10 19:27:40,user_06@enterprise.com,10.10.1.52,GET,http://localhost:8080/tienda1/imagenes/2.gif,,0
+2026-05-12 00:13:29,user_48@enterprise.com,10.10.1.39,POST,http://localhost:8080/tienda1/miembros/editar.jsp,Content-Length: 274,0
+2026-05-12 00:48:19,user_01@enterprise.com,10.10.1.36,POST,http://localhost:8080/tienda1/publico/anadir.jsp,Content-Length: 67,0
+2026-05-12 08:59:06,user_05@enterprise.com,10.10.1.45,GET,http://localhost:8080/tienda1/publico/productos.jsp,,0
+2026-05-12 22:38:18,user_15@enterprise.com,10.10.1.37,GET,http://localhost:8080/tienda1/miembros/salir.jsp,,0
+2026-05-13 02:22:46,user_37@enterprise.com,10.10.1.33,GET,http://localhost:8080/tienda1/index.jsp,,0
+2026-05-13 06:58:03,user_02@enterprise.com,10.10.1.17,GET,http://localhost:8080/tienda1/imagenes/cmenbul.gif,,0
+2026-05-13 08:01:52,user_17@enterprise.com,10.10.1.21,GET,http://localhost:8080/tienda1/miembros/salir.jsp,,0
+2026-05-15 17:09:36,user_40@enterprise.com,10.10.1.40,GET,http://localhost:8080/tienda1/imagenes/logo.gif,,0
+2026-05-16 05:05:50,user_10@enterprise.com,10.10.1.22,GET,http://localhost:8080/tienda1/publico/productos.jsp,,0
+2026-05-16 10:31:05,user_24@enterprise.com,10.10.1.56,GET,http://localhost:8080/tienda1/global/titulo.jsp,,0
+2026-05-16 13:45:10,user_16@enterprise.com,10.10.1.53,GET,http://localhost:8080/tienda1/global/menum.jsp,,0
+2026-05-17 23:47:16,user_41@enterprise.com,10.10.1.53,GET,http://localhost:8080/tienda1/miembros/imagenes/castro.jpg,,0
+2026-05-18 01:07:46,user_35@enterprise.com,10.10.1.34,GET,http://localhost:8080/tienda1/miembros/imagenes/ogono.jpg,,0
+2026-05-18 05:01:43,user_46@enterprise.com,10.10.1.59,POST,http://localhost:8080/tienda1/publico/autenticar.jsp,Content-Length: 66,0
+2026-05-19 11:13:59,user_05@enterprise.com,10.10.1.21,POST,http://localhost:8080/tienda1/publico/caracteristicas.jsp,Content-Length: 4,0
+2026-05-21 00:31:04,user_47@enterprise.com,10.10.1.11,GET,http://localhost:8080/tienda1/miembros/fotos.jsp,,0
+2026-05-21 04:42:00,user_14@enterprise.com,10.10.1.54,GET,http://localhost:8080/tienda1/publico/carrito.jsp,,0

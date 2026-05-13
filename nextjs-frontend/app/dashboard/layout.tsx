@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Home, Users2, List } from "lucide-react";
-import Image from "next/image";
+import { Home, ShieldAlert, BarChart3 } from "lucide-react";
 
 import {
   Breadcrumb,
@@ -29,27 +28,24 @@ export default function DashboardLayout({
         <div className="flex flex-col items-center gap-8">
           <Link
             href="/"
-            className="flex items-center justify-center rounded-full"
+            className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-600 text-white hover:bg-blue-700 transition-colors"
+            title="Anomaly Sentinel home"
           >
-            <Image
-              src="/images/vinta.png"
-              alt="Vinta"
-              width={64}
-              height={64}
-              className="object-cover transition-transform duration-200 hover:scale-105"
-            />
+            <ShieldAlert className="h-5 w-5" />
           </Link>
           <Link
-            href="/dashboard"
+            href="/dashboard/logs"
             className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+            title="Log analysis"
           >
-            <List className="h-5 w-5" />
+            <ShieldAlert className="h-5 w-5" />
           </Link>
           <Link
-            href="/customers"
+            href="/dashboard/models"
             className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+            title="Model comparison"
           >
-            <Users2 className="h-5 w-5" />
+            <BarChart3 className="h-5 w-5" />
           </Link>
         </div>
       </aside>
@@ -68,9 +64,9 @@ export default function DashboardLayout({
               <BreadcrumbSeparator>/</BreadcrumbSeparator>
               <BreadcrumbItem>
                 <BreadcrumbLink asChild>
-                  <Link href="/dashboard" className="flex items-center gap-2">
-                    <List className="h-4 w-4" />
-                    <span>Dashboard</span>
+                  <Link href="/dashboard/logs" className="flex items-center gap-2">
+                    <ShieldAlert className="h-4 w-4" />
+                    <span>Logs</span>
                   </Link>
                 </BreadcrumbLink>
               </BreadcrumbItem>

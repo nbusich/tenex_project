@@ -5,6 +5,7 @@ import {
   type Client,
   type TDataShape,
   urlSearchParamsBodySerializer,
+  formDataBodySerializer,
 } from "./client";
 import type {
   AuthJwtLoginData,
@@ -52,6 +53,27 @@ import type {
   DeleteItemData,
   DeleteItemResponses,
   DeleteItemErrors,
+  UploadLogFileData,
+  UploadLogFileResponses,
+  UploadLogFileErrors,
+  ListLogFilesData,
+  ListLogFilesResponses,
+  ListLogFilesErrors,
+  ListLogEntriesData,
+  ListLogEntriesResponses,
+  ListLogEntriesErrors,
+  GetLogFileSummaryData,
+  GetLogFileSummaryResponses,
+  GetLogFileSummaryErrors,
+  DeleteLogFileData,
+  DeleteLogFileResponses,
+  DeleteLogFileErrors,
+  ExplainLogEntryData,
+  ExplainLogEntryResponses,
+  ExplainLogEntryErrors,
+  CompareModelsData,
+  CompareModelsResponses,
+  CompareModelsErrors,
 } from "./types.gen";
 import { client } from "./client.gen";
 
@@ -413,6 +435,179 @@ export const deleteItem = <ThrowOnError extends boolean = false>(
       },
     ],
     url: "/items/{item_id}",
+    ...options,
+  });
+};
+
+/**
+ * Upload Log File
+ */
+export const uploadLogFile = <ThrowOnError extends boolean = false>(
+  options: Options<UploadLogFileData, ThrowOnError>,
+) => {
+  return (options.client ?? client).post<
+    UploadLogFileResponses,
+    UploadLogFileErrors,
+    ThrowOnError
+  >({
+    ...formDataBodySerializer,
+    responseType: "json",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/logs/upload",
+    ...options,
+    headers: {
+      "Content-Type": null,
+      ...options.headers,
+    },
+  });
+};
+
+/**
+ * List Log Files
+ */
+export const listLogFiles = <ThrowOnError extends boolean = false>(
+  options?: Options<ListLogFilesData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).get<
+    ListLogFilesResponses,
+    ListLogFilesErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/logs/files",
+    ...options,
+  });
+};
+
+/**
+ * List Log Entries
+ */
+export const listLogEntries = <ThrowOnError extends boolean = false>(
+  options: Options<ListLogEntriesData, ThrowOnError>,
+) => {
+  return (options.client ?? client).get<
+    ListLogEntriesResponses,
+    ListLogEntriesErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/logs/files/{file_id}/entries",
+    ...options,
+  });
+};
+
+/**
+ * Get Log File Summary
+ */
+export const getLogFileSummary = <ThrowOnError extends boolean = false>(
+  options: Options<GetLogFileSummaryData, ThrowOnError>,
+) => {
+  return (options.client ?? client).get<
+    GetLogFileSummaryResponses,
+    GetLogFileSummaryErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/logs/files/{file_id}/summary",
+    ...options,
+  });
+};
+
+/**
+ * Delete Log File
+ */
+export const deleteLogFile = <ThrowOnError extends boolean = false>(
+  options: Options<DeleteLogFileData, ThrowOnError>,
+) => {
+  return (options.client ?? client).delete<
+    DeleteLogFileResponses,
+    DeleteLogFileErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/logs/files/{file_id}",
+    ...options,
+  });
+};
+
+/**
+ * Explain Log Entry
+ * LLM-backed per-entry verdict.
+ *
+ * Returns `{"verdict": "anomaly" | "false_positive" | "normal",
+ * "description": "...",
+ * "source": "llm" | "fallback"}`.
+ *
+ * Authorizes via the parent log file's ownership.
+ */
+export const explainLogEntry = <ThrowOnError extends boolean = false>(
+  options: Options<ExplainLogEntryData, ThrowOnError>,
+) => {
+  return (options.client ?? client).post<
+    ExplainLogEntryResponses,
+    ExplainLogEntryErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/logs/entries/{entry_id}/explain",
+    ...options,
+  });
+};
+
+/**
+ * Compare Models
+ */
+export const compareModels = <ThrowOnError extends boolean = false>(
+  options?: Options<CompareModelsData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).get<
+    CompareModelsResponses,
+    CompareModelsErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/models/compare",
     ...options,
   });
 };

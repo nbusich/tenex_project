@@ -1,0 +1,21 @@
+timestamp,user,client_ip,method,url,content_length,label
+2026-05-08 19:01:13,user_47@enterprise.com,10.10.1.25,GET,http://localhost:8080/tienda1/global/titulo.jsp,,0
+2026-05-10 02:31:36,user_07@enterprise.com,10.10.1.11,GET,http://localhost:8080/tienda1/global/titulo.jsp,,0
+2026-05-10 10:34:35,user_03@enterprise.com,10.10.1.33,GET,http://localhost:8080/tienda1/imagenes/logo.gif,,0
+2026-05-10 20:32:14,user_16@enterprise.com,10.10.1.32,GET,http://localhost:8080/tienda1/publico/productos.jsp,,0
+2026-05-11 16:00:54,user_36@enterprise.com,10.10.1.31,GET,http://localhost:8080/tienda1/miembros/imagenes/castro.jpg,,0
+2026-05-14 01:53:29,user_25@enterprise.com,10.10.1.30,GET,http://localhost:8080/tienda1/publico/vaciar.jsp?B2=Vaciar+carrito,,0
+2026-05-14 05:00:48,user_03@enterprise.com,10.10.1.23,GET,http://localhost:8080/tienda1/global/creditos.jsp,,0
+2026-05-14 07:08:05,user_50@enterprise.com,10.10.1.16,GET,http://localhost:8080/tienda1/publico/pagar.jsp?modo=insertar&precio=5933&B1=Pasar+por+caja,,0
+2026-05-14 12:00:03,user_12@enterprise.com,10.10.1.24,GET,http://localhost:8080/tienda1/publico/anadir.jsp?id=3&nombre=Queso+Manchego&precio=85&cantidad=28&B1=A%F1adir+al+carrito,,0
+2026-05-14 17:35:08,user_24@enterprise.com,10.10.1.34,GET,http://localhost:8080/tienda1/publico/miembros.jsp,,0
+2026-05-15 12:26:38,user_01@enterprise.com,10.10.1.24,GET,http://localhost:8080/tienda1/publico/productos.jsp,,0
+2026-05-15 15:33:44,user_11@enterprise.com,10.10.1.33,POST,http://localhost:8080/tienda1/publico/caracteristicas.jsp,Content-Length: 4,0
+2026-05-17 09:54:31,user_41@enterprise.com,10.10.1.39,GET,http://localhost:8080/tienda1/miembros/imagenes/castro.jpg,,0
+2026-05-17 20:57:19,user_21@enterprise.com,10.10.1.47,GET,http://localhost:8080/tienda1/global/menum.jsp,,0
+2026-05-19 02:48:56,user_24@enterprise.com,10.10.1.30,POST,http://localhost:8080/tienda1/publico/pagar.jsp,Content-Length: 38,0
+2026-05-19 03:44:51,user_28@enterprise.com,10.10.1.10,GET,http://localhost:8080/tienda1/imagenes/cmenbul.gif,,0
+2026-05-20 00:58:45,user_22@enterprise.com,10.10.1.43,POST,http://localhost:8080/tienda1/publico/registro.jsp,Content-Length: 262,0
+2026-05-20 01:39:07,user_09@enterprise.com,10.10.1.53,GET,http://localhost:8080/tienda1/index.jsp,,0
+2026-05-20 11:29:16,user_10@enterprise.com,10.10.1.33,GET,http://localhost:8080/tienda1/global/titulo.jsp,,0
+2026-05-21 00:59:31,user_14@enterprise.com,10.10.1.33,GET,http://localhost:8080/tienda1/publico/pagar.jsp?modo=insertar&precio=4014&B1=Pasar+por+caja,,0

@@ -59,6 +59,20 @@ export type BodyAuthVerifyVerify = {
 };
 
 /**
+ * Body_logs-upload_log_file
+ */
+export type BodyLogsUploadLogFile = {
+  /**
+   * File
+   */
+  file: Blob | File;
+  /**
+   * Model
+   */
+  model?: string;
+};
+
+/**
  * ErrorModel
  */
 export type ErrorModel = {
@@ -127,6 +141,137 @@ export type ItemRead = {
 };
 
 /**
+ * LogEntryRead
+ */
+export type LogEntryRead = {
+  /**
+   * Id
+   */
+  id: string;
+  /**
+   * Log File Id
+   */
+  log_file_id: string;
+  /**
+   * Timestamp
+   */
+  timestamp?: string | null;
+  /**
+   * Source Ip
+   */
+  source_ip?: string | null;
+  /**
+   * User Agent
+   */
+  user_agent?: string | null;
+  /**
+   * Action
+   */
+  action?: string | null;
+  /**
+   * Url
+   */
+  url?: string | null;
+  /**
+   * Method
+   */
+  method?: string | null;
+  /**
+   * Status Code
+   */
+  status_code?: number | null;
+  /**
+   * Bytes Sent
+   */
+  bytes_sent?: number | null;
+  /**
+   * Url Category
+   */
+  url_category?: string | null;
+  /**
+   * Threat Name
+   */
+  threat_name?: string | null;
+  /**
+   * User Login
+   */
+  user_login?: string | null;
+  /**
+   * Raw Line
+   */
+  raw_line?: string | null;
+  /**
+   * Is Anomaly
+   */
+  is_anomaly: boolean;
+  /**
+   * Anomaly Score
+   */
+  anomaly_score?: number | null;
+  /**
+   * Anomaly Reason
+   */
+  anomaly_reason?: string | null;
+};
+
+/**
+ * LogFileRead
+ */
+export type LogFileRead = {
+  /**
+   * Id
+   */
+  id: string;
+  /**
+   * Filename
+   */
+  filename: string;
+  /**
+   * Uploaded At
+   */
+  uploaded_at: string;
+  /**
+   * Total Entries
+   */
+  total_entries: number;
+  /**
+   * Anomaly Count
+   */
+  anomaly_count: number;
+};
+
+/**
+ * LogFileSummary
+ */
+export type LogFileSummary = {
+  file: LogFileRead;
+  /**
+   * Timeline
+   */
+  timeline: Array<TimelineBucket>;
+  /**
+   * Top Source Ips
+   */
+  top_source_ips: Array<TopIp>;
+  /**
+   * Top Actions
+   */
+  top_actions: {
+    [key: string]: number;
+  };
+  /**
+   * Top Categories
+   */
+  top_categories: {
+    [key: string]: number;
+  };
+  /**
+   * Ai Explanation
+   */
+  ai_explanation?: string | null;
+};
+
+/**
  * Page[ItemRead]
  */
 export type PageItemRead = {
@@ -150,6 +295,113 @@ export type PageItemRead = {
    * Pages
    */
   pages?: number | null;
+};
+
+/**
+ * Page[LogEntryRead]
+ */
+export type PageLogEntryRead = {
+  /**
+   * Items
+   */
+  items: Array<LogEntryRead>;
+  /**
+   * Total
+   */
+  total?: number | null;
+  /**
+   * Page
+   */
+  page: number | null;
+  /**
+   * Size
+   */
+  size: number | null;
+  /**
+   * Pages
+   */
+  pages?: number | null;
+};
+
+/**
+ * Page[LogFileRead]
+ */
+export type PageLogFileRead = {
+  /**
+   * Items
+   */
+  items: Array<LogFileRead>;
+  /**
+   * Total
+   */
+  total?: number | null;
+  /**
+   * Page
+   */
+  page: number | null;
+  /**
+   * Size
+   */
+  size: number | null;
+  /**
+   * Pages
+   */
+  pages?: number | null;
+};
+
+/**
+ * TimelineBucket
+ */
+export type TimelineBucket = {
+  /**
+   * Bucket
+   */
+  bucket: string;
+  /**
+   * Count
+   */
+  count: number;
+  /**
+   * Anomaly Count
+   */
+  anomaly_count: number;
+};
+
+/**
+ * TopIP
+ */
+export type TopIp = {
+  /**
+   * Source Ip
+   */
+  source_ip: string;
+  /**
+   * Count
+   */
+  count: number;
+  /**
+   * Anomaly Count
+   */
+  anomaly_count: number;
+};
+
+/**
+ * UploadResponse
+ */
+export type UploadResponse = {
+  file: LogFileRead;
+  /**
+   * Parsed
+   */
+  parsed: number;
+  /**
+   * Skipped
+   */
+  skipped: number;
+  /**
+   * Anomalies
+   */
+  anomalies: number;
 };
 
 /**
@@ -748,6 +1000,251 @@ export type DeleteItemResponses = {
   200: unknown;
 };
 
+export type UploadLogFileData = {
+  body: BodyLogsUploadLogFile;
+  path?: never;
+  query?: never;
+  url: "/logs/upload";
+};
+
+export type UploadLogFileErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type UploadLogFileError = UploadLogFileErrors[keyof UploadLogFileErrors];
+
+export type UploadLogFileResponses = {
+  /**
+   * Successful Response
+   */
+  200: UploadResponse;
+};
+
+export type UploadLogFileResponse =
+  UploadLogFileResponses[keyof UploadLogFileResponses];
+
+export type ListLogFilesData = {
+  body?: never;
+  path?: never;
+  query?: {
+    /**
+     * Page
+     * Page number
+     */
+    page?: number;
+    /**
+     * Size
+     * Page size
+     */
+    size?: number;
+  };
+  url: "/logs/files";
+};
+
+export type ListLogFilesErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ListLogFilesError = ListLogFilesErrors[keyof ListLogFilesErrors];
+
+export type ListLogFilesResponses = {
+  /**
+   * Successful Response
+   */
+  200: PageLogFileRead;
+};
+
+export type ListLogFilesResponse =
+  ListLogFilesResponses[keyof ListLogFilesResponses];
+
+export type ListLogEntriesData = {
+  body?: never;
+  path: {
+    /**
+     * File Id
+     */
+    file_id: string;
+  };
+  query?: {
+    /**
+     * Only Anomalies
+     */
+    only_anomalies?: boolean;
+    /**
+     * Page
+     * Page number
+     */
+    page?: number;
+    /**
+     * Size
+     * Page size
+     */
+    size?: number;
+  };
+  url: "/logs/files/{file_id}/entries";
+};
+
+export type ListLogEntriesErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ListLogEntriesError =
+  ListLogEntriesErrors[keyof ListLogEntriesErrors];
+
+export type ListLogEntriesResponses = {
+  /**
+   * Successful Response
+   */
+  200: PageLogEntryRead;
+};
+
+export type ListLogEntriesResponse =
+  ListLogEntriesResponses[keyof ListLogEntriesResponses];
+
+export type GetLogFileSummaryData = {
+  body?: never;
+  path: {
+    /**
+     * File Id
+     */
+    file_id: string;
+  };
+  query?: never;
+  url: "/logs/files/{file_id}/summary";
+};
+
+export type GetLogFileSummaryErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type GetLogFileSummaryError =
+  GetLogFileSummaryErrors[keyof GetLogFileSummaryErrors];
+
+export type GetLogFileSummaryResponses = {
+  /**
+   * Successful Response
+   */
+  200: LogFileSummary;
+};
+
+export type GetLogFileSummaryResponse =
+  GetLogFileSummaryResponses[keyof GetLogFileSummaryResponses];
+
+export type DeleteLogFileData = {
+  body?: never;
+  path: {
+    /**
+     * File Id
+     */
+    file_id: string;
+  };
+  query?: never;
+  url: "/logs/files/{file_id}";
+};
+
+export type DeleteLogFileErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type DeleteLogFileError = DeleteLogFileErrors[keyof DeleteLogFileErrors];
+
+export type DeleteLogFileResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type ExplainLogEntryData = {
+  body?: never;
+  path: {
+    /**
+     * Entry Id
+     */
+    entry_id: string;
+  };
+  query?: never;
+  url: "/logs/entries/{entry_id}/explain";
+};
+
+export type ExplainLogEntryErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type ExplainLogEntryError =
+  ExplainLogEntryErrors[keyof ExplainLogEntryErrors];
+
+export type ExplainLogEntryResponses = {
+  /**
+   * Successful Response
+   */
+  200: unknown;
+};
+
+export type CompareModelsData = {
+  body?: never;
+  path?: never;
+  query?: {
+    /**
+     * Sample
+     */
+    sample?: number;
+    /**
+     * Page
+     */
+    page?: number;
+    /**
+     * Size
+     */
+    size?: number;
+    /**
+     * Threshold
+     */
+    threshold?: number | null;
+  };
+  url: "/models/compare";
+};
+
+export type CompareModelsErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type CompareModelsError = CompareModelsErrors[keyof CompareModelsErrors];
+
+export type CompareModelsResponses = {
+  /**
+   * Response Models-Compare Models
+   * Successful Response
+   */
+  200: {
+    [key: string]: unknown;
+  };
+};
+
+export type CompareModelsResponse =
+  CompareModelsResponses[keyof CompareModelsResponses];
+
 export type ClientOptions = {
-  baseURL: `${string}://openapi.json` | (string & {});
+  baseURL: `${string}://${string}` | (string & {});
 };

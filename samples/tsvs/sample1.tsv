@@ -1,0 +1,4 @@
+timestamp	user	src_ip	dst_ip	method	url	hostname	category	super_category	action	reason	status_code	bytes_in	bytes_out	user_agent	threat_name	threat_category	risk_score
+2026-05-07T13:10:01Z	alice@company.com	10.0.4.10	172.217.24.110	GET	https://mail.google.com/mail/u/0/	mail.google.com	Webmail	Business and Economy	Allowed	Allowed	200	431	28422	Mozilla/5.0 Chrome/124.0	None	None	2
+2026-05-07T13:11:32Z	bob@company.com	10.0.4.12	198.51.100.101	GET	http://fake-update.example/update.exe	fake-update.example	Malware	Advanced Security	Blocked	Malware detected	403	150	0	Mozilla/5.0 Chrome/124.0	Win32.FakeUpdate	Malware	97
+2026-05-07T13:12:09Z	charlie@company.com	10.0.4.13	203.0.113.50	POST	https://storage-transfer.example/archive.zip	storage-transfer.example	File Sharing	Productivity	Allowed	Allowed	200	73400320	340	curl/8.4.0	None	None	84

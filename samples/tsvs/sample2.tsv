@@ -1,0 +1,4 @@
+timestamp	user	src_ip	dst_ip	method	url	hostname	category	super_category	action	reason	status_code	bytes_in	bytes_out	user_agent	threat_name	threat_category	risk_score
+2026-05-07T14:02:55Z	dana@company.com	10.0.5.20	13.107.42.16	GET	https://teams.microsoft.com/	teams.microsoft.com	Collaboration	Business and Economy	Allowed	Allowed	200	610	50230	Mozilla/5.0 Edge/124.0	None	None	1
+2026-05-07T14:03:12Z	evan@company.com	10.0.5.21	192.0.2.222	GET	http://credential-check.example/session	credential-check.example	Phishing	Advanced Security	Blocked	Phishing site	403	205	0	Mozilla/5.0 Chrome/124.0	Phish.Login.Clone	Phishing	99
+2026-05-07T14:05:48Z	frank@company.com	10.0.5.22	203.0.113.140	CONNECT	anonymizer.example:443	anonymizer.example	Anonymizer	Miscellaneous	Blocked	Policy violation	403	300	0	Unknown	None	None	76

@@ -1,0 +1,21 @@
+timestamp,user,client_ip,method,url,content_length,label
+2026-05-21 06:05:57,user_14@enterprise.com,192.168.5.100,POST,http://localhost:8080/tienda1/publico/registro.jsp,Content-Length: 301,1
+2026-05-21 06:06:01,user_05@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/asf-logo-wide.gif/.Inc,,1
+2026-05-21 06:07:55,user_17@enterprise.com,192.168.5.100,PUT,http://localhost:8080/tienda1/publico/autenticar.jsp,Content-Length: 59,1
+2026-05-21 06:10:45,user_01@enterprise.com,192.168.5.100,GET,http://localhost:8080/CFIDE/administrator/header.cfm,,1
+2026-05-21 06:29:20,user_22@enterprise.com,192.168.5.100,GET,http://localhost:8080/compass/logon.jsp,,1
+2026-05-21 06:40:21,user_23@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/miembros/editar.jsp?modo=registro&login=buhler&password=8ntrepei388&nombre=Edisa&apellidos=Pando+Rebull&email=charney%40pro-isfv.mp&dni=27478839A&direccion=Las+Acacias+13%2C+11-A&ciudad=Marcilla+de+Campos&cp=48320&provincia=Palencia&ntcA=6512218837130409&B1=Registrar,,1
+2026-05-21 06:46:04,user_49@enterprise.com,192.168.5.100,POST,http://localhost:8080/tienda1/miembros/editar.jsp,Content-Length: 313,1
+2026-05-21 07:00:54,user_13@enterprise.com,192.168.5.99,GET,http://localhost:8080/tienda1/publico/registro.jsp?modo=registro&login=radomir8&password=potajera&nombre=Aim%E9&apellidos=Fadul+Lude%F1as&email=houseman%40sitienesunawebtienesunnegocio.io&dni=97675447J&direccion=Pla%E7a+Gramatics%2C+3%2C+&ciudad=Valverde+del+Camino&cp=10133&provinciaA=%C1vila&ntc=7141808491932190&B1=Registrar,,1
+2026-05-21 07:11:34,user_25@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/imagenes/cmenbul.gif/asf-logo-wide.gif,,1
+2026-05-21 07:26:33,user_31@enterprise.com,192.168.5.99,GET,http://localhost:8080/tienda1/publico/anadir.jsp?id=3%2F&nombre=Queso+Manchego&precio=85&cantidad=45&B1=A%F1adir+al+carrito,,1
+2026-05-21 07:27:17,user_18@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/miembros/editar.jsp?modo=registro&login=peers&password=at222a1&nombre=Cipriana&apellidos=Serradell&email=cornthwaite%40clichotel.do&dni=19247264J&direccion=C%2F+Joventut%2C+182%2C+&ciudad=Am%2F%3F.pudia&cp=31510&provincia=Salamanca&ntc=8765134980053757&B1=Registrar,,1
+2026-05-21 07:41:11,user_30@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/publico/entrar.jsp?errorMsgA=Credenciales+incorrectas,,1
+2026-05-21 07:44:59,user_21@enterprise.com,192.168.5.99,POST,http://localhost:8080/tienda1/publico/anadir.jsp,Content-Length: 77,1
+2026-05-21 07:45:52,user_02@enterprise.com,192.168.5.99,GET,http://localhost:8080/tienda1/publico/registro.jsp?modo=registro&login=kundert&password=monesca&nombre=Ante&apellidos=Altirriba+Pava&email=lowry-carmine%40filtraciondehumos.nc&dni=70212042B&direccion=C%2F+Mercurio+165+4E&ciudad=San+Mart%EDn+de+la+Virgen+de+Moncayo&cp=03773&provincia=Navarra&ntc=410473345935403&B1=Registrar,,1
+2026-05-21 07:46:50,user_24@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/publico/pagar.jsp?modo=insertar&precioA=7896&B1=Confirmar,,1
+2026-05-21 07:53:22,user_23@enterprise.com,192.168.5.99,GET,http://localhost:8080/tienda1/imagenes/1.gif/.Bak,,1
+2026-05-21 08:08:35,user_50@enterprise.com,192.168.5.100,POST,http://localhost:8080/tienda1/publico/autenticar.jsp,Content-Length: 134,1
+2026-05-21 08:24:52,user_31@enterprise.com,192.168.5.100,GET,http://localhost:8080/tienda1/publico/productos.jsp/,,1
+2026-05-21 08:28:46,user_48@enterprise.com,192.168.5.100,GET,http://localhost:8080/CFIDE/administrator/homepage.cfm,,1
+2026-05-21 08:36:06,user_29@enterprise.com,192.168.5.99,POST,http://localhost:8080/tienda1/miembros/editar.jsp,Content-Length: 268,1
