@@ -11,13 +11,6 @@ from sklearn.base import BaseEstimator, TransformerMixin
 
 
 class _FittedFlagMixin:
-    """Marks the transformer as fitted so sklearn's `check_is_fitted` is happy.
-
-    Our custom transformers are stateless — `fit` is a no-op. sklearn 1.6+
-    enforces `check_is_fitted` inside `Pipeline.transform`, looking for any
-    attribute ending in `_`. Setting `fitted_ = True` in `fit()` satisfies
-    that check without inventing fake state.
-    """
 
     def _mark_fitted(self) -> None:
         self.fitted_ = True
