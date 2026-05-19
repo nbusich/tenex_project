@@ -192,22 +192,20 @@ class TransformerAnomalyModel(BaseAnomalyModel):
         )
 
         window_errors = self._reconstruction_errors_from_dataset(dataset)
-        # Soft saturation: 1 - exp(-error / (2 * threshold)). Same shape
-        # as the previous linear clip near error == 0 (slope ~ 1/(2t)),
-        # but tails toward 1.0 instead of slamming into it — different
-        # out-of-distribution windows keep distinct numeric scores
-        # (e.g. 0.97 vs 0.993 vs 0.9999) instead of all reading as 1.0.
+    
+        # Laplacian Kernel measures similarity score
+        # This is 1-laplacian kernel which is anomaly score
         t = max(self.calibration_threshold or 1e-9, 1e-9)
-        window_scores = 1.0 - np.exp(-window_errors / (2.0 * t))
+        l = 2*t
+        window_scores = 1.0 - np.exp(-window_errors / l)
         window_scores = np.clip(window_scores, 0.0, 1.0)
 
         # Map per-window scores back to per-row scores aligned with the
         # ORIGINAL df order. Each window covers `seq_len` rows; we apply
         # the window's score to every row it contains and take the max
         # across overlapping windows. That way the first (seq_len - 1)
-        # rows still get scored — they're the leading edges of windows
-        # that extend forward in time — instead of being structural
-        # zeros that miss real anomalies.
+        # rows still get scored
+
         n = len(df_in)
         per_row_sorted = np.zeros(n, dtype=np.float32)
         for i, score in enumerate(window_scores):
@@ -238,7 +236,7 @@ class TransformerAnomalyModel(BaseAnomalyModel):
             return np.empty((0,), dtype=np.float32)
         return np.concatenate(out)
 
-    # ----------------------------------------------------------------- io
+    # -----------------------------------------------------------------
 
     def save(self, artifact_dir: str | Path) -> None:
         self._assert_ready()

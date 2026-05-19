@@ -1,1 +1,1 @@
-{"hidden_dim": 64, "bottleneck": 16, "in_features": 66, "calibration_threshold": 0.22916363179683685, "calibration_percentile": 99.9}
+{"hidden_dim": 64, "bottleneck": 16, "in_features": 66, "calibration_threshold": 0.2408064305782318, "calibration_percentile": 99.9}

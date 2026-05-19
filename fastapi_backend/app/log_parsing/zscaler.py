@@ -140,6 +140,19 @@ def _parse_timestamp(value: str | None) -> datetime | None:
     except ValueError:
         return None
 
+def _parse_content_length(value: str | None) -> float | None:
+    if not value:
+        return None
+    try:
+        pattern = "\d+"
+        match = re.search(pattern=pattern, string=value)
+        if match:
+            num = float(match.group(0))
+            return num
+        else:
+            return 0.0
+    except Exception as e:
+        return None
 
 def _to_int(value: str | None) -> int | None:
     if value is None:
@@ -159,7 +172,6 @@ def _looks_like_header(row: list[str]) -> bool:
     normalized = [_normalize_header(c) for c in row]
     return sum(1 for c in normalized if c in FIELD_ALIASES) >= 2
 
-
 def _sniff_dialect(sample: str) -> csv.Dialect:
     try:
         return csv.Sniffer().sniff(sample, delimiters=",\t|")
@@ -175,7 +187,7 @@ def _sniff_dialect(sample: str) -> csv.Dialect:
 
         return _D()
 
-
+# INVESTIGATION STEP 7: ZSCALER log string is fed to this function
 def parse_zscaler_log(content: str) -> tuple[list[dict], int]:
     """Parse a ZScaler web proxy log.
 
@@ -247,17 +259,11 @@ def _row_to_entry(row: list[str], field_for_col: list[str | None]) -> dict | Non
     entry["timestamp"] = _parse_timestamp(entry.get("timestamp"))
     entry["status_code"] = _to_int(entry.get("status_code"))
     entry["bytes_sent"] = _to_int(entry.get("bytes_sent"))
+    entry["content_length"] = _parse_content_length(entry.get("content_length"))
 
-    # If bytes_sent wasn't given explicitly but we have a CSIC-style
-    # "Content-Length: 38" string in content_length, pull the digits out
-    # for the UI summary. Keep content_length as the raw string so the
-    # ML preprocessor sees the exact shape it was trained on.
     if entry.get("bytes_sent") is None:
         cl = entry.get("content_length")
-        if isinstance(cl, str):
-            m = re.search(r"\d+", cl)
-            if m:
-                entry["bytes_sent"] = int(m.group(0))
+        entry["bytes_sent"] = cl
 
     has_anything = any(
         entry.get(k)
@@ -266,3 +272,9 @@ def _row_to_entry(row: list[str], field_for_col: list[str | None]) -> dict | Non
     if not has_anything:
         return None
     return entry
+
+if __name__ == "__main__":
+    filepath = r"/Users/nbusich/Documents/coding/tenex/src/nextjs-frontend/public/samples/csic-attack-1.csv"
+    with open(filepath, "r", encoding="utf-8") as file:
+        content = file.read()
+    entries, skipped = parse_zscaler_log(content)

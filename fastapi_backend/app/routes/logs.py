@@ -50,6 +50,7 @@ def _entry_dict_to_model(entry: dict, log_file_id: UUID) -> LogEntry:
     )
 
 
+# INVESTIGATION STEP 4: The API hands the logs and model to the correct route. The route is a function.
 @router.post("/upload", response_model=UploadResponse)
 async def upload_log_file(
     file: UploadFile = File(...),
@@ -68,26 +69,31 @@ async def upload_log_file(
     if len(raw) > MAX_UPLOAD_BYTES:
         raise HTTPException(status_code=413, detail="File too large (max 25 MB).")
     try:
+        # INVESTIGATION STEP 5: The raw log bytes are processed to a string
         content = raw.decode("utf-8", errors="replace")
     except Exception as exc:  # pragma: no cover
         raise HTTPException(status_code=400, detail=f"Could not decode: {exc}")
-
+    
+    # INVESTIGATION STEP 6: The log string is handed to parse_zscaler_log, converts string to list of log entries (dicts)
     entries, skipped = parse_zscaler_log(content)
     if not entries:
         raise HTTPException(
             status_code=400,
             detail="No parseable entries found. Is this a ZScaler web proxy log?",
         )
-
+    
+    # INVESTIGATION STEP 7: list of log entries, each one is a dict with field/value
     entries = detect_anomalies(entries, model_name=chosen_model)
     anomaly_count = sum(1 for e in entries if e.get("is_anomaly"))
-
+    
+    
     log_file = LogFile(
         filename=file.filename or "uploaded.log",
         user_id=user.id,
         total_entries=len(entries),
         anomaly_count=anomaly_count,
     )
+    # INVESTIGATION STEP 14: Results and log added to database
     db.add(log_file)
     await db.flush()  # populate log_file.id
 

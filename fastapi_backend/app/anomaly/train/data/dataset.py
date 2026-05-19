@@ -32,7 +32,7 @@ class LogDataset(Dataset):
 class SequenceLogDataset(Dataset):
     def __init__(self, df, pipeline, seq_len=10, is_train=True):
         """
-        Loads raw CSV, applies the pipeline, and serves sliding windows for Transformers.
+        Loads df, applies the pipeline, and serves sliding windows for Transformers.
         """
         super().__init__()
         self.seq_len = seq_len
@@ -74,6 +74,7 @@ class SequenceLogDataset(Dataset):
         # If ANY log in this sequence is an attack, the sequence is an anomaly
         is_anomaly = 1.0 if torch.any(window_labels > 0) else 0.0
         return x_window, torch.tensor([is_anomaly], dtype=torch.float32)
+    
 
 def write_processed_csv(
     df_raw: pd.DataFrame,

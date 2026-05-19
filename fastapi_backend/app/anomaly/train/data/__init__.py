@@ -12,8 +12,8 @@ __all__ = [
     "EXPECTED_INPUT_COLUMNS",
     "LogDataset",
     "SequenceLogDataset",
+    "write_processed_csv"
     "build_preprocessor",
-    "write_processed_csv",
     "ContentLengthTransformer",
     "DateTransformer",
     "IPTransformer",

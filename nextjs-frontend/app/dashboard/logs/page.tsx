@@ -33,6 +33,7 @@ export default async function LogsPage() {
       </p>
 
       <div className="mb-6">
+        {/*INVESTIGATION STEP 1: Upload Form */}
         <UploadForm />
       </div>
 

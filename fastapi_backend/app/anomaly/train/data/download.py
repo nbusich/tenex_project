@@ -1,9 +1,6 @@
 import shutil
 from pathlib import Path
 import kagglehub
-import datetime
-import random
-import re
 
 def download_csic_2010(dest):
     path = Path(kagglehub.dataset_download("ispangler/csic-2010-web-application-attacks"))

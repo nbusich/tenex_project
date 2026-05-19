@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { uploadLogFile } from "@/components/actions/logs-action";
 import { Button } from "@/components/ui/button";
 
-type ModelChoice = "transformer" | "autoencoder" | "random_forest" | "heuristic";
+type ModelChoice = "transformer" | "autoencoder" | "random_forest" | "heuristic" | "mlp";
 
 const MODEL_TABS: { id: ModelChoice; label: string; blurb: string }[] = [
   {
@@ -27,6 +27,11 @@ const MODEL_TABS: { id: ModelChoice; label: string; blurb: string }[] = [
     id: "heuristic",
     label: "Heuristic",
     blurb: "Rule-based (no model needed)",
+  },
+  {
+    id: "mlp",
+    label: "mlp",
+    blurb: "mlp",
   },
 ];
 
@@ -54,6 +59,7 @@ export function UploadForm() {
     fd.append("file", selected);
     fd.append("model", model);
     startTransition(async () => {
+      {/*INVESTIGATION STEP 2: selected file and model go to uploadLogFile */}
       const result = await uploadLogFile(fd);
       if (result.error) {
         setError(result.error);

@@ -18,13 +18,12 @@ async_db_connection_url = (
     f"{parsed_db_url.path}"
 )
 
-# Disable connection pooling for serverless environments like Vercel
+# Disable connection pooling for environments that spin up/down connections (doesn't hold them open)
 engine = create_async_engine(async_db_connection_url, poolclass=NullPool)
 
 async_session_maker = async_sessionmaker(
     engine, expire_on_commit=settings.EXPIRE_ON_COMMIT
 )
-
 
 async def create_db_and_tables():
     async with engine.begin() as conn:

@@ -1,1 +1,1 @@
-{"d_model": 96, "nhead": 6, "num_layers": 4, "seq_len": 10, "in_features": 67, "calibration_threshold": 0.0040774233639240265, "calibration_percentile": 99.9}
+{"d_model": 96, "nhead": 6, "num_layers": 4, "seq_len": 10, "in_features": 67, "calibration_threshold": 0.006698227021843195, "calibration_percentile": 99.9}

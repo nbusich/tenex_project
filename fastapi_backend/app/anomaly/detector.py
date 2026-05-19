@@ -37,6 +37,7 @@ _MODEL_LABELS = {
     "autoencoder": "AutoEncoder",
     "transformer": "Transformer",
     "heuristic": "Heuristic",
+    "mlp": "MLP"
 }
 
 _DEFAULT_THRESHOLDS = {
@@ -44,12 +45,13 @@ _DEFAULT_THRESHOLDS = {
     "autoencoder": 0.5,
     "transformer": 0.5,
     "heuristic": 0.5,
+    "mlp": 0.5,
 }
 
 DEFAULT_MODEL = "transformer"
-ALLOWED_MODELS = ("transformer", "autoencoder", "random_forest", "heuristic")
+ALLOWED_MODELS = ("transformer", "autoencoder", "random_forest", "heuristic", "mlp")
 
-
+# INVESTIGATION PART 8: Router calls detect anomalies. Parsed logs get anomaly detections.
 def detect_anomalies(
     entries: list[dict],
     model_name: str = DEFAULT_MODEL,
@@ -67,6 +69,7 @@ def detect_anomalies(
     if name == "heuristic":
         return _heuristic_detect(entries)
 
+    # INVESTIGATION PART 9: the parsed log entries enter try_model, to be processed
     scored = _try_model(entries, name, threshold)
     if scored is not None:
         return scored
@@ -92,7 +95,8 @@ def _try_model(
     except Exception as exc:
         LOG.warning("Could not import anomaly inference engine: %s", exc)
         return None
-
+    
+    # INVESTIGATION STEP 10: model engine object is created with name and artifacts
     engine = get_engine(model_name)
     if not engine.is_available():
         LOG.warning(
@@ -103,6 +107,7 @@ def _try_model(
         return None
 
     try:
+        # INVESTIGATION STEP 11: entries->engine.score_entries->anomaly scores
         scored = engine.score_entries(entries, threshold=threshold)
     except Exception as exc:
         LOG.exception("Model %s failed during scoring: %s", model_name, exc)
@@ -114,7 +119,7 @@ def _try_model(
         if entry.get("is_anomaly"):
             entry["anomaly_reason"] = f"{label} score {score:.3f} ≥ {threshold:g}"
         else:
-            entry["anomaly_reason"] = None
+            entry["anomaly_reason"] = "Normal"
     return scored
 
 

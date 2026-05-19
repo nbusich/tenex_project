@@ -21,6 +21,7 @@ import argparse
 import datetime
 import random
 from pathlib import Path
+import re
 
 import pandas as pd
 
@@ -57,7 +58,6 @@ def main() -> None:
 # Steps
 # ---------------------------------------------------------------------------
 
-
 def _ensure_raw_csv(force: bool) -> None:
     if RAW_CSV.exists() and not force:
         print(f"[1/3] Raw CSIC CSV already present at {RAW_CSV}.")
@@ -67,12 +67,14 @@ def _ensure_raw_csv(force: bool) -> None:
     download_csic_2010(DATA_DIR)
 
 
+
 def _ensure_split(force: bool) -> None:
     if TRAIN_CSV.exists() and TEST_CSV.exists() and not force:
         print(f"[2/3] Raw split already present at {TRAIN_CSV} / {TEST_CSV}.")
         return
     print(f"[2/3] Generating train/test splits ...")
     df = pd.read_csv(RAW_CSV)
+    df = _format_data(df)
     normal_df = df[df["classification"] == 0]
     anomaly_df = df[df["classification"] == 1]
 
@@ -116,9 +118,21 @@ def _ensure_processed(force: bool) -> None:
     print(f"     train: {n_train_cols} features  test: {n_test_cols} features")
 
 
-# ---------------------------------------------------------------------------
-# Augmentation (re-implemented locally so this file is self-contained)
-# ---------------------------------------------------------------------------
+
+def _format_data(df):
+    df['lenght'] = df['lenght'].apply(_parse_content_column)
+    return df
+
+
+def _parse_content_column(value):
+        value = str(value)
+        pattern = "\d+"
+        match = re.search(pattern=pattern, string=value)
+        if match:
+            num = int(match.group())
+            return num
+        else:
+            return float(0.0)
 
 
 def _augment(df: pd.DataFrame) -> pd.DataFrame:
@@ -149,7 +163,6 @@ def _augment(df: pd.DataFrame) -> pd.DataFrame:
             }
         )
     return pd.DataFrame(rows)
-
 
 if __name__ == "__main__":
     main()

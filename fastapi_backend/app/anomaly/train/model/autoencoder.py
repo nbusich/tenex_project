@@ -125,9 +125,6 @@ class AutoEncoderAnomalyModel(BaseAnomalyModel):
         self._assert_ready()
         X_mat = self.preprocessor.transform(df).astype(np.float32)
         errors = self._reconstruction_errors(X_mat)
-        # Soft saturation: 1 - exp(-error / (2 * threshold)). Same near-zero
-        # slope as the old linear clip, but the tail approaches 1.0 instead
-        # of slamming into it, so OOD inputs keep some numeric spread.
         t = max(self.calibration_threshold or 1e-9, 1e-9)
         scores = 1.0 - np.exp(-errors / (2.0 * t))
         return np.clip(scores, 0.0, 1.0)

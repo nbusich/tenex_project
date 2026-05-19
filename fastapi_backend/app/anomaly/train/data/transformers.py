@@ -55,21 +55,21 @@ class DateTransformer(_FittedFlagMixin, BaseEstimator, TransformerMixin):
 
 
 class ContentLengthTransformer(_FittedFlagMixin, BaseEstimator, TransformerMixin):
-    """Pull the numeric portion out of a `Content-Length: N` style string."""
+    """TRAIN ONLY: Pull the numeric portion out of a `Content-Length: N` style string."""
 
     def fit(self, X, y=None):
         self._mark_fitted()
         return self
 
     def transform(self, X):
-        target_col = X["content_length"]
-        if target_col.dtype == object:
-            extracted = target_col.astype(str).str.extract(
+        flat_series = pd.Series(np.asarray(X).ravel())
+        if flat_series.dtype == object:
+            extracted = flat_series.astype(str).str.extract(
                 r"Content-Length:\s*(\d+)", expand=False
             )
             return pd.DataFrame(extracted.astype(float).fillna(0.0))
-        # Already numeric — coerce to float and forward.
-        return pd.DataFrame(target_col.astype(float).fillna(0.0))
+            
+        return pd.DataFrame(flat_series.astype(float).fillna(0.0))
 
     def get_feature_names_out(self, input_features=None):
         return np.array(["content_length_clean"])

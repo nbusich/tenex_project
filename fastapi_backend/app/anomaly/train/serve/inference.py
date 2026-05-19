@@ -43,7 +43,8 @@ class InferenceEngine:
 
     def is_available(self) -> bool:
         return self.artifact_path.exists() and any(self.artifact_path.iterdir())
-
+    
+    # INVESTIGATION PART 12: Model object created with model registry, artifacts and self.load
     def model(self) -> BaseAnomalyModel:
         if self._model is None:
             with self._lock:
@@ -52,7 +53,8 @@ class InferenceEngine:
                     LOG.info("Loading %s model from %s", self.model_name, self.artifact_path)
                     self._model = model_cls.load(self.artifact_path)
         return self._model
-
+    
+    # INVESTIGATION PART 13: model object uses its self.predict_proba method to return anom score
     def score_entries(
         self,
         entries: list[dict[str, Any]],
@@ -63,17 +65,14 @@ class InferenceEngine:
 
         df = _entries_to_dataframe(entries)
         model = self.model()
+
+        # INVESTIGATION PART 14: entries dataframe is given to AnomalyDetector
         proba = model.predict_proba(df)
 
         for entry, score in zip(entries, proba):
             score_f = float(score)
             entry["anomaly_score"] = round(score_f, 3)
             entry["is_anomaly"] = score_f >= threshold
-            entry["anomaly_reason"] = (
-                f"{self.model_name} score {score_f:.2f} >= {threshold:.2f}"
-                if score_f >= threshold
-                else None
-            )
         return entries
 
 
@@ -97,6 +96,7 @@ def score_entries(
     model_name: str,
     threshold: float = 0.5,
 ) -> list[dict[str, Any]]:
+    """Thin wrapper that scores entries using the specified model engine."""
     return get_engine(model_name).score_entries(entries, threshold=threshold)
 
 
@@ -109,16 +109,13 @@ def _entries_to_dataframe(entries: list[dict[str, Any]]) -> pd.DataFrame:
     """Build a DataFrame with EXACTLY the columns the preprocessor expects."""
     rows = []
     for e in entries:
-        # Prefer the raw "Content-Length: N" string when the parser captured
-        # one directly (CSIC-style logs); otherwise reconstruct it from the
-        # numeric bytes_sent so non-CSIC ZScaler exports still parse.
         raw_cl = e.get("content_length")
-        if isinstance(raw_cl, str) and raw_cl.strip():
-            content_length = raw_cl
+        if isinstance(raw_cl, float|int):
+            content_length = float(raw_cl)
         elif e.get("bytes_sent") is not None:
-            content_length = f"Content-Length: {e['bytes_sent']}"
+            content_length = e['bytes_sent']
         else:
-            content_length = "Content-Length: 0"
+            content_length = 0.0
 
         rows.append(
             {

@@ -1,26 +1,15 @@
-"""Train + evaluate + save the AutoEncoder model.
-
-Run from the backend root:
-    python -m app.anomaly.train.train.train_autoencoder
-"""
-
-from __future__ import annotations
-
 from ..eval.metrics import evaluate
-from ..model.autoencoder import AutoEncoderAnomalyModel
+from ..model.mlp import MLPAnomalyModel
 from ._common import artifact_dir_for, load_splits
 
 
 def main() -> None:
     train_df, test_df = load_splits()
-    model = AutoEncoderAnomalyModel(
-        hidden_dim=64,
-        bottleneck=16,
+    model = MLPAnomalyModel(in_dim=67,
         epochs=20,
         batch_size=256,
-        lr=1e-3,
-        calibration_percentile=50.0,
-    )
+        lr=1e-3)
+
     model.fit(train_df, label_col="label")
 
     y_proba = model.predict_proba(test_df)
@@ -32,7 +21,6 @@ def main() -> None:
 
     model.save(artifact_dir_for(model.name))
     print(f"Saved model to {artifact_dir_for(model.name)}")
-
 
 if __name__ == "__main__":
     main()

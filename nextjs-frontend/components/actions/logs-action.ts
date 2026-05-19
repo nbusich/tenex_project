@@ -123,6 +123,7 @@ export async function uploadLogFile(formData: FormData) {
     upstream.append("model", model);
   }
 
+  {/*INVESTIGATION STEP 3: logs and model given to api URL with fetch*/}
   const res = await fetch(`${API_BASE_URL}/logs/upload`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}` },

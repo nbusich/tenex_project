@@ -48,6 +48,7 @@ PER_MODEL_THRESHOLDS: dict[str, float] = {
     "random_forest": 1e-3,
     "autoencoder": 0.5,
     "transformer": 0.5,
+    "mlp": 0.5,
 }
 DEFAULT_THRESHOLD = 0.5
 

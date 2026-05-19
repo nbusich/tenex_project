@@ -16,24 +16,20 @@ from .transformers import (
     ContentLengthTransformer,
     DateTransformer,
     URLFeatureExtractor,
+
 )
 
 EXPECTED_INPUT_COLUMNS = [
     "timestamp",
     "user",
-    "client_ip",  # parsed but currently unused (IPTransformer commented out)
     "method",
     "url",
     "content_length",
 ]
 
 
-def build_preprocessor() -> Pipeline: # Notice we return a Pipeline now
+def build_preprocessor() -> Pipeline:
     """Return the fitted-on-demand preprocessor with scaling."""
-    
-    content_pipeline = Pipeline(
-        [("extractor", ContentLengthTransformer())]
-    )
 
     # 1. The Feature Extractor
     preprocessor = ColumnTransformer(
@@ -41,7 +37,7 @@ def build_preprocessor() -> Pipeline: # Notice we return a Pipeline now
             ("time", DateTransformer(), ["timestamp"]),
             ("url_text", URLFeatureExtractor(), ["url"]),
             ("cat", OneHotEncoder(handle_unknown="ignore", sparse_output=False), ["method", "user"]),
-            ("num", content_pipeline, ["content_length"]),
+            ("keep", "passthrough", ["content_length"])
         ]
     )
     

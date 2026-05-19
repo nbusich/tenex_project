@@ -14,11 +14,13 @@ from .autoencoder import AutoEncoderAnomalyModel
 from .base import BaseAnomalyModel
 from .encodertransformer import TransformerAnomalyModel
 from .random_forest import RandomForestAnomalyModel
+from .mlp import MLPAnomalyModel
 
 MODEL_REGISTRY: dict[str, type[BaseAnomalyModel]] = {
     RandomForestAnomalyModel.name: RandomForestAnomalyModel,
     AutoEncoderAnomalyModel.name: AutoEncoderAnomalyModel,
     TransformerAnomalyModel.name: TransformerAnomalyModel,
+    MLPAnomalyModel.name: MLPAnomalyModel
 }
 
 
@@ -36,5 +38,6 @@ __all__ = [
     "MODEL_REGISTRY",
     "RandomForestAnomalyModel",
     "TransformerAnomalyModel",
+    "MLPAnomalyModel"
     "get_model_class",
 ]

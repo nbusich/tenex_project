@@ -208,13 +208,9 @@ export default async function LogFilePage({ params, searchParams }: Props) {
                         {e.url || "—"}
                       </TableCell>
                       <TableCell className="text-center">
-                        {e.is_anomaly ? (
                           <span className="inline-flex items-center rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-800">
-                            {(e.anomaly_score ?? 0).toFixed(2)}
+                            {(e.anomaly_score ?? 0).toFixed(3)}
                           </span>
-                        ) : (
-                          "—"
-                        )}
                       </TableCell>
                       <TableCell
                         className="max-w-[32ch] truncate"
