@@ -99,6 +99,7 @@ async def compare_models(
             continue
         try:
             proba = engine.model().predict_proba(test_df.drop(columns=["label"]))
+            proba = np.asarray(proba).reshape(-1)
             pred = (proba >= t).astype(int)
         except Exception as exc:
             LOG.exception("Model %s failed during comparison", model_name)

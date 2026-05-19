@@ -74,6 +74,9 @@ import type {
   CompareModelsData,
   CompareModelsResponses,
   CompareModelsErrors,
+  TrainModelData,
+  TrainModelResponses,
+  TrainModelErrors,
 } from "./types.gen";
 import { client } from "./client.gen";
 
@@ -609,5 +612,32 @@ export const compareModels = <ThrowOnError extends boolean = false>(
     ],
     url: "/models/compare",
     ...options,
+  });
+};
+
+/**
+ * Train Model
+ */
+export const trainModel = <ThrowOnError extends boolean = false>(
+  options?: Options<TrainModelData, ThrowOnError>,
+) => {
+  return (options?.client ?? client).post<
+    TrainModelResponses,
+    TrainModelErrors,
+    ThrowOnError
+  >({
+    responseType: "json",
+    security: [
+      {
+        scheme: "bearer",
+        type: "http",
+      },
+    ],
+    url: "/train",
+    ...options,
+    headers: {
+      "Content-Type": "application/json",
+      ...options?.headers,
+    },
   });
 };

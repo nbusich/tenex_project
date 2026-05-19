@@ -386,6 +386,66 @@ export type TopIp = {
 };
 
 /**
+ * TrainConfigRead
+ */
+export type TrainConfigRead = {
+  /**
+   * Model Name
+   */
+  model_name?: string;
+  /**
+   * Lr
+   */
+  lr?: number;
+  /**
+   * Epochs
+   */
+  epochs?: number;
+  /**
+   * Batch Size
+   */
+  batch_size?: number;
+};
+
+/**
+ * TrainMetricsRead
+ */
+export type TrainMetricsRead = {
+  /**
+   * F1
+   */
+  f1?: number;
+  /**
+   * Precision
+   */
+  precision?: number;
+  /**
+   * Recall
+   */
+  recall?: number;
+  /**
+   * N
+   */
+  n?: number;
+  /**
+   * N Positive
+   */
+  n_positive?: number;
+};
+
+/**
+ * TrainResponse
+ */
+export type TrainResponse = {
+  config?: TrainConfigRead;
+  metrics?: TrainMetricsRead;
+  /**
+   * Status
+   */
+  status?: string;
+};
+
+/**
  * UploadResponse
  */
 export type UploadResponse = {
@@ -1244,6 +1304,31 @@ export type CompareModelsResponses = {
 
 export type CompareModelsResponse =
   CompareModelsResponses[keyof CompareModelsResponses];
+
+export type TrainModelData = {
+  body?: TrainConfigRead;
+  path?: never;
+  query?: never;
+  url: "/train";
+};
+
+export type TrainModelErrors = {
+  /**
+   * Validation Error
+   */
+  422: HttpValidationError;
+};
+
+export type TrainModelError = TrainModelErrors[keyof TrainModelErrors];
+
+export type TrainModelResponses = {
+  /**
+   * Successful Response
+   */
+  200: TrainResponse;
+};
+
+export type TrainModelResponse = TrainModelResponses[keyof TrainModelResponses];
 
 export type ClientOptions = {
   baseURL: `${string}://${string}` | (string & {});

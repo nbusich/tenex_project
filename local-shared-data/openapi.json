@@ -1258,6 +1258,51 @@
           }
         }
       }
+    },
+    "/train": {
+      "post": {
+        "tags": [
+          "train"
+        ],
+        "summary": "Train Model",
+        "operationId": "train_model",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrainConfigRead"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TrainResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2PasswordBearer": []
+          }
+        ]
+      }
     }
   },
   "components": {
@@ -1990,6 +2035,70 @@
           "anomaly_count"
         ],
         "title": "TopIP"
+      },
+      "TrainConfigRead": {
+        "properties": {
+          "model_name": {
+            "type": "string",
+            "title": "Model Name"
+          },
+          "lr": {
+            "type": "number",
+            "title": "Lr"
+          },
+          "epochs": {
+            "type": "integer",
+            "title": "Epochs"
+          },
+          "batch_size": {
+            "type": "integer",
+            "title": "Batch Size"
+          }
+        },
+        "type": "object",
+        "title": "TrainConfigRead"
+      },
+      "TrainMetricsRead": {
+        "properties": {
+          "f1": {
+            "type": "number",
+            "title": "F1"
+          },
+          "precision": {
+            "type": "number",
+            "title": "Precision"
+          },
+          "recall": {
+            "type": "number",
+            "title": "Recall"
+          },
+          "n": {
+            "type": "integer",
+            "title": "N"
+          },
+          "n_positive": {
+            "type": "integer",
+            "title": "N Positive"
+          }
+        },
+        "type": "object",
+        "title": "TrainMetricsRead"
+      },
+      "TrainResponse": {
+        "properties": {
+          "config": {
+            "$ref": "#/components/schemas/TrainConfigRead"
+          },
+          "metrics": {
+            "$ref": "#/components/schemas/TrainMetricsRead"
+          },
+          "status": {
+            "type": "string",
+            "title": "Status"
+          }
+        },
+        "type": "object",
+        "title": "TrainResponse"
       },
       "UploadResponse": {
         "properties": {

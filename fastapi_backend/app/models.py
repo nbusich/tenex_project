@@ -12,7 +12,7 @@ from sqlalchemy import (
     ForeignKey,
 )
 from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.dialects.postgresql import UUID, ARRAY
 from sqlalchemy.sql import func
 from uuid import uuid4
 
@@ -26,6 +26,7 @@ class User(SQLAlchemyBaseUserTableUUID, Base):
     log_files = relationship(
         "LogFile", back_populates="user", cascade="all, delete-orphan"
     )
+    runs = relationship("TrainConfig", back_populates="user")
 
 
 class Item(Base):
@@ -84,3 +85,34 @@ class LogEntry(Base):
     anomaly_reason = Column(Text, nullable=True)
 
     log_file = relationship("LogFile", back_populates="entries")
+
+
+class TrainMetrics(Base):
+    __tablename__ = 'train_metrics'
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    run_id = Column(UUID(as_uuid=True), ForeignKey("train_run.id"), nullable=False, index=True)
+
+    f1 = Column(Float, nullable=False)
+    precision = Column(Float, nullable=False)
+    recall = Column(Float, nullable=False)
+    n = Column(Integer, nullable=False)
+    n_positive = Column(Integer, nullable=False)
+
+    run = relationship("TrainConfig", back_populates='metrics')
+
+
+class TrainConfig(Base):
+    __tablename__ = "train_run"
+
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
+    timestamp = Column(DateTime(timezone=True), nullable=True, index=True)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("user.id"), nullable=False)
+
+    model_name = Column(String, nullable=False)
+    lr = Column(Float, nullable=False)
+    epochs = Column(Integer, nullable=False)
+    batch_size = Column(Integer, nullable=False)
+    status = Column(String, nullable=False)
+
+    user = relationship("User", back_populates='runs')
+    metrics = relationship("TrainMetrics", back_populates='run')

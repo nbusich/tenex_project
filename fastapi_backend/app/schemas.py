@@ -94,3 +94,28 @@ class UploadResponse(BaseModel):
     parsed: int
     skipped: int
     anomalies: int
+
+
+class TrainConfigRead(BaseModel):
+    model_name: str = None
+    lr: float = None
+    epochs: int = None
+    batch_size: int = None
+
+    model_config = {"from_attributes": True}
+
+
+class TrainMetricsRead(BaseModel):
+    f1: float = None
+    precision: float = None
+    recall: float = None
+    n: int = None
+    n_positive: int = None
+
+    model_config = {"from_attributes": True}
+
+
+class TrainResponse(BaseModel):
+    config: TrainConfigRead = None
+    metrics: TrainMetricsRead = None
+    status: str = None

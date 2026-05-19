@@ -11,18 +11,25 @@ from ..model.encodertransformer import TransformerAnomalyModel
 from ._common import artifact_dir_for, load_splits
 
 
-def main() -> None:
-    train_df, test_df = load_splits()
-
-    model = TransformerAnomalyModel(
-        seq_len=10,
+def train_transformer(seq_len=10,
         d_model=96,
         nhead=6,
         num_layers=4,
         epochs=10,
         batch_size=128,
         lr=1e-4,
-        calibration_percentile=50.0)
+        calibration_percentile=50.0) -> dict:
+    train_df, test_df = load_splits()
+
+    model = TransformerAnomalyModel(
+        seq_len=seq_len,
+        d_model=d_model,
+        nhead=nhead,
+        num_layers=num_layers,
+        epochs=epochs,
+        batch_size=batch_size,
+        lr=lr,
+        calibration_percentile=calibration_percentile)
     
     model.fit(train_df, label_col="label")
 
@@ -35,7 +42,8 @@ def main() -> None:
 
     model.save(artifact_dir_for(model.name))
     print(f"Saved model to {artifact_dir_for(model.name)}")
+    return metrics
 
 
 if __name__ == "__main__":
-    main()
+    train_transformer()

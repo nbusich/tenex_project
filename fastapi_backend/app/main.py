@@ -7,6 +7,7 @@ from .utils import simple_generate_unique_route_id
 from app.routes.items import router as items_router
 from app.routes.logs import router as logs_router
 from app.routes.models import router as models_router
+from app.routes.train import router as train_router
 from app.config import settings
 
 app = FastAPI(
@@ -50,10 +51,24 @@ app.include_router(
     tags=["users"],
 )
 
-# Include items routes
-app.include_router(items_router, prefix="/items")
-# Include logs routes
-app.include_router(logs_router, prefix="/logs")
-# Include model comparison routes
-app.include_router(models_router, prefix="/models")
+app.include_router(
+    items_router, 
+    prefix="/items"
+)
+
+app.include_router(
+    logs_router,
+    prefix="/logs"
+)
+
+app.include_router(
+    models_router,
+    prefix="/models"
+)
+
+app.include_router(
+    train_router,
+    prefix='/train'
+)
+
 add_pagination(app)

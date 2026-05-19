@@ -11,7 +11,7 @@ from ..model.random_forest import RandomForestAnomalyModel
 from ._common import artifact_dir_for, load_splits
 
 
-def main() -> None:
+def train_rf() -> dict:
     train_df, test_df = load_splits()
 
     model = RandomForestAnomalyModel()
@@ -26,7 +26,7 @@ def main() -> None:
 
     model.save(artifact_dir_for(model.name))
     print(f"Saved model to {artifact_dir_for(model.name)}")
-
+    return metrics
 
 if __name__ == "__main__":
-    main()
+    train_rf

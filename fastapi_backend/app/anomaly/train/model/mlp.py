@@ -43,8 +43,8 @@ class MLPAnomalyModel(BaseAnomalyModel):
         self.anom_col = anom_col
         self.device = device
         self.lr = lr
-        self.epochs=epochs,
-        self.batch_size=batch_size,
+        self.epochs = epochs
+        self.batch_size = batch_size
 
     def fit(self, df: pd.DataFrame, label_col: str = "label") -> "BaseAnomalyModel":
         y_train=df[label_col].to_numpy().astype(np.float32)
@@ -55,7 +55,7 @@ class MLPAnomalyModel(BaseAnomalyModel):
 
         self.in_dim = X_mat.shape[1]
         self.model = MLP(
-            in_dim=67
+            in_dim=self.in_dim
         ).to(self.device)
         loader = DataLoader(
             TensorDataset(torch.from_numpy(X_mat), torch.from_numpy(y_train).unsqueeze(dim=1)),
@@ -80,14 +80,14 @@ class MLPAnomalyModel(BaseAnomalyModel):
         return self
 
 
-    @torch.no_grad
+    @torch.no_grad()
     def predict_proba(self, df: pd.DataFrame) -> np.ndarray:
         """Return anomaly scores in [0, 1] — higher = more anomalous."""
-        pipe = build_preprocessor()
-        x = pipe.fit_transform(df).astype(np.float32)
+        self._assert_ready()
+        x = self.preprocessor.transform(df).astype(np.float32)
         logits = self.model(torch.from_numpy(x))
-        logits = F.sigmoid(logits)
-        return np.array(logits.numpy())
+        probs = torch.sigmoid(logits).cpu().numpy()
+        return probs.reshape(-1)
 
     def predict(self, df: pd.DataFrame, threshold: float = 0.5) -> np.ndarray:
         return (self.predict_proba(df) >= threshold).astype(bool)
@@ -110,15 +110,10 @@ class MLPAnomalyModel(BaseAnomalyModel):
     def load(cls, artifact_dir: str | Path) -> "BaseAnomalyModel":
         path = Path(artifact_dir)
         config = json.loads((path / cls._CONFIG).read_text())
-        instance = cls(
-            in_dim=config["in_dim"]
-        )
-        instance.in_features = config["in_features"]
-        instance.calibration_threshold = config.get("calibration_threshold")
+        in_dim = int(config["in_dim"])
+        instance = cls(in_dim=in_dim)
         instance.preprocessor = joblib.load(path / cls._PREPROC)
-        instance.model = MLP(
-            instance.in_dim,
-        ).to(instance.device)
+        instance.model = MLP(in_dim=in_dim).to(instance.device)
         instance.model.load_state_dict(
             torch.load(path / cls._WEIGHTS, map_location=instance.device)
         )

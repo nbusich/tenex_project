@@ -11,14 +11,18 @@ from ..model.autoencoder import AutoEncoderAnomalyModel
 from ._common import artifact_dir_for, load_splits
 
 
-def main() -> None:
-    train_df, test_df = load_splits()
-    model = AutoEncoderAnomalyModel(
+def train_autoencoder(
         hidden_dim=64,
-        bottleneck=16,
         epochs=20,
         batch_size=256,
-        lr=1e-3,
+        lr=1e-3,):
+    train_df, test_df = load_splits()
+    model = AutoEncoderAnomalyModel(
+        hidden_dim=hidden_dim,
+        bottleneck=16,
+        epochs=epochs,
+        batch_size=batch_size,
+        lr=lr,
         calibration_percentile=50.0,
     )
     model.fit(train_df, label_col="label")
@@ -32,7 +36,8 @@ def main() -> None:
 
     model.save(artifact_dir_for(model.name))
     print(f"Saved model to {artifact_dir_for(model.name)}")
+    return metrics
 
 
 if __name__ == "__main__":
-    main()
+    train_autoencoder()
